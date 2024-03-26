@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Enums;
-namespace Flights
+namespace AirportTicketBookingSystem.Flights
 {
     public class Flight
     {
@@ -30,13 +30,6 @@ namespace Flights
             ArrivalAirport = arrivalAirport;
             Class = flightClass;
             Price = price;
-        }
-        public void SaveToFile(string filePath)
-        {
-        }
-        public static Flight LoadFromFile(string filePath)
-        {
-            return null; // Placeholder
         }
     }
 }

@@ -1,16 +1,16 @@
 ﻿using AirportTicketBookingSystem.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AirportTicketBookingSystem.UserRole;
 
-namespace AirportTicketBookingSystem.Flight
+namespace AirportTicketBookingSystem.Flights
 {
-    public static class ManagerOperations
+    public class ManagerOperations
     {
-        public static void SelectOperation()
+        public FlightManagement flightManagement = new FlightManagement();
+
+        public void SelectManagerOperation(Manager manager)
         {
+            Console.Clear();
+            Console.WriteLine($"HELLO{manager.Name} Welcome to Booking System!");
             Console.WriteLine("Manager Operations Menu:");
             Console.WriteLine($"1. {ManagerOperation.FilterBookings}");
             Console.WriteLine($"2. {ManagerOperation.BatchFlightUpload}");
@@ -25,17 +25,13 @@ namespace AirportTicketBookingSystem.Flight
             switch (choice)
             {
                 case ManagerOperation.FilterBookings:
-                    FilterBookings();
+                    flightManagement.FilterBookings();
                     break;
+
                 case ManagerOperation.BatchFlightUpload:
-                    BatchFlightUpload();
+                    flightManagement.BatchFlightUpload();
                     break;
             }
         }
-
-
-
-
     }
 }
-

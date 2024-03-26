@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserRole
+namespace AirportTicketBookingSystem.UserRole
 {
     // Manager class inheriting from User
     public class Manager : User

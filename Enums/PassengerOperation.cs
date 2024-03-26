@@ -9,8 +9,11 @@ namespace AirportTicketBookingSystem.Enums
     public enum PassengerOperation
     {
         BookFlight = 1,
-        CancelBooking = 2,
-        EditBooking = 3,
-        ViewPersonalBookings = 4
+        ListAllFlights =2,
+        CancelBooking = 3,
+        EditBooking = 4,
+        ViewPersonalBookings = 5,
+        Exit = 6
+
     }
 }

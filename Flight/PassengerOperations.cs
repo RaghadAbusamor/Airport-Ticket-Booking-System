@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using global::AirportTicketBookingSystem.Enums;
+﻿using AirportTicketBookingSystem.Enums;
+using AirportTicketBookingSystem.UserRole;
 using System;
 
-namespace AirportTicketBookingSystem.Flight
+namespace AirportTicketBookingSystem.Flights
 {
-
-
-    namespace AirportTicketBookingSystem.UserRole
+    public class PassengerOperations
     {
-        public static class PassengerOperations
+        public FlightManagement flightManagement = new FlightManagement();
+
+        public void SelectPassengerOperation(Passenger passenger)
         {
-            public static void SelectPassengerOperation()
+            Console.Clear();
+            Console.WriteLine($"HELLO {passenger.Name}, Welcome to Booking System!");
+
+            while (true)
             {
                 Console.WriteLine("Passenger Operations Menu:");
                 Console.WriteLine($"1. {PassengerOperation.BookFlight}");
-                Console.WriteLine($"2. {PassengerOperation.CancelBooking}");
-                Console.WriteLine($"3. {PassengerOperation.EditBooking}");
-                Console.WriteLine($"4. {PassengerOperation.ViewPersonalBookings}");
+                Console.WriteLine($"2. {PassengerOperation.ListAllFlights}");
+                Console.WriteLine($"3. {PassengerOperation.CancelBooking}");
+                Console.WriteLine($"4. {PassengerOperation.EditBooking}");
+                Console.WriteLine($"5. {PassengerOperation.ViewPersonalBookings}");
+                Console.WriteLine($"6. Exit");
                 Console.Write("Enter your choice: ");
                 PassengerOperation choice;
                 while (!Enum.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(PassengerOperation), choice))
@@ -32,44 +33,35 @@ namespace AirportTicketBookingSystem.Flight
                 switch (choice)
                 {
                     case PassengerOperation.BookFlight:
-                        BookFlight();
+                        flightManagement.BookFlight();
                         break;
+
+                    case PassengerOperation.ListAllFlights:
+                        flightManagement.ListAllFlights();
+                        break;
+
                     case PassengerOperation.CancelBooking:
-                        CancelBooking();
+                        flightManagement.CancelBooking();
                         break;
+
                     case PassengerOperation.EditBooking:
-                        EditBooking();
+                        flightManagement.EditBooking();
                         break;
+
                     case PassengerOperation.ViewPersonalBookings:
-                        ViewPersonalBookings();
+                        flightManagement.ViewPersonalBookings();
+                        break;
+
+                    case PassengerOperation.Exit:
+
+                        flightManagement.Exit();
                         break;
                 }
-            }
 
-            private static void BookFlight()
-            {
-                Console.WriteLine("Book a Flight operation selected.");
-                // Add logic for booking a flight
-            }
-
-            private static void CancelBooking()
-            {
-                Console.WriteLine("Cancel Booking operation selected.");
-                // Add logic for canceling a booking
-            }
-
-            private static void EditBooking()
-            {
-                Console.WriteLine("Edit Booking operation selected.");
-                // Add logic for editing a booking
-            }
-
-            private static void ViewPersonalBookings()
-            {
-                Console.WriteLine("View Personal Bookings operation selected.");
-                // Add logic for viewing personal bookings
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey(true);
+                Console.Clear();
             }
         }
     }
-
 }

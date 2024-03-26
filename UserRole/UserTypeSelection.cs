@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserRole;
-using AirportTicketBookingSystem.Enums;
-using AirportTicketBookingSystem.Flight.AirportTicketBookingSystem.UserRole;
+﻿using AirportTicketBookingSystem.Enums;
+using AirportTicketBookingSystem.Flights;
 
 namespace AirportTicketBookingSystem.UserRole
 {
@@ -38,7 +32,9 @@ namespace AirportTicketBookingSystem.UserRole
                     Console.WriteLine("Invalid input. Please enter a valid ID.");
                     Console.Write("Enter your ID: ");
                 }
-
+                var manager = new Manager(name, id);
+                ManagerOperations managerOperation = new ManagerOperations();
+                managerOperation.SelectManagerOperation(manager);
                 // Proceed with manager operations
                 // For demonstration, let's assume we have manager operations here
             }
@@ -66,14 +62,10 @@ namespace AirportTicketBookingSystem.UserRole
                 string PhoneNumber = Console.ReadLine();
                 // Create a new passenger object with the entered details
                 var passenger = new Passenger(name, id, PhoneNumber, passportNumber);
-
-                // Display the passenger operations 
-                PassengerOperations.SelectPassengerOperation();
-                //Console.WriteLine("Passenger Information:");
-                //Console.WriteLine(passenger.ToString());
+                PassengerOperations passengerOperations = new PassengerOperations();
+                // Display the passenger operations
+                passengerOperations.SelectPassengerOperation(passenger);
             }
-
-            Console.WriteLine("Thank you for using the Airport Ticket Booking System!");
         }
     }
 }
