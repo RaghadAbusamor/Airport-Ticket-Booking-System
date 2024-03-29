@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AirportTicketBookingSystem.Enums
 {
     public enum PassengerOperation
@@ -13,7 +8,8 @@ namespace AirportTicketBookingSystem.Enums
         CancelBooking = 3,
         EditBooking = 4,
         ViewPersonalBookings = 5,
-        Exit = 6
+        SearchBooking =6,
+        Exit = 7
 
     }
 }

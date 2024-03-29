@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Enums;
 
 namespace AirportTicketBookingSystem.Flights
@@ -23,35 +19,72 @@ namespace AirportTicketBookingSystem.Flights
 
         private void AddDefaultFlight()
         {
-            // Add your default flight here
             Flights.Add(new Flight("ABC123", "USA", "UK", DateTime.Now.AddDays(1), "JFK", "LHR", FlightClass.Business, 1000));
+            Flights.Add(new Flight("RST", "USA", "UK", DateTime.Now.AddDays(1), "JFK", "LHR", FlightClass.Business, 2000));
         }
-
-        public List<Flight> SearchFlights(decimal Price, string departureCountry, string destinationCountry, DateTime departureDate, string departureAirport, string arrivalAirport, FlightClass flightClass)
-        {
-            // Filter flights based on search parameters
-            var filteredFlights = Flights.Where(f =>
-                f.Price <= Price &&
-                f.DepartureCountry == departureCountry &&
-                f.DestinationCountry == destinationCountry &&
-                f.DepartureDate.Date == departureDate.Date &&
-                f.DepartureAirport == departureAirport &&
-                f.ArrivalAirport == arrivalAirport &&
-                f.Class == flightClass).ToList();
-
-            return filteredFlights;
-        }
-
         public void FilterBookings()
         {
-            Console.WriteLine("Filter Bookings operation selected.");
-            // Add logic for filtering bookings
-        }
+            var filteredFlights = Flights;
+            Console.WriteLine("Enter parameter and value to filter flights (e.g., 'Price' = '500'):");
+            Console.Write("Enter parameter: ");
+            string parameter = Console.ReadLine();
+            Console.Write("Enter value: ");
+            string value = Console.ReadLine();
 
-        public void BatchFlightUpload()
+            switch (parameter.ToLower())
+            {
+                case "flight number":
+                    filteredFlights = filteredFlights.Where(f => f.FlightNumber.Equals(value)).ToList();
+                    break;
+                case "price":
+                    decimal price;
+                    if (decimal.TryParse(value, out price))
+                        filteredFlights = filteredFlights.Where(f => f.Price.Equals( price)).ToList();
+                    else
+                        Console.WriteLine("Invalid price value.");
+                    break;
+                case "departure country":
+                    filteredFlights = filteredFlights.Where(f => f.DepartureCountry.Equals(value)).ToList();
+                    break;
+                case "destination country":
+                    filteredFlights = filteredFlights.Where(f => f.DestinationCountry.Equals(value)).ToList();
+                    break;
+                case "departure date":
+                    DateTime departureDate;
+                    if (DateTime.TryParse(value, out departureDate))
+                        filteredFlights = filteredFlights.Where(f => f.DepartureDate.Date.Equals( departureDate.Date)).ToList();
+                    else
+                        Console.WriteLine("Invalid departure date value.");
+                    break;
+                case "departure airport":
+                    filteredFlights = filteredFlights.Where(f => f.DepartureAirport.Equals(value)).ToList();
+                    break;
+                case "arrival airport":
+                    filteredFlights = filteredFlights.Where(f => f.ArrivalAirport.Equals(value)).ToList();
+                    break;
+                case "class":
+                    FlightClass flightClass;
+                    if (Enum.TryParse(value, true, out flightClass))
+                        filteredFlights = filteredFlights.Where(f => f.Class.Equals(flightClass)).ToList();
+                    else
+                        Console.WriteLine("Invalid class value.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid parameter.");
+                    break;
+            }
+
+            Console.WriteLine("Filtered Flights:");
+            foreach (var flight in filteredFlights)
+            {
+                Console.WriteLine(flight.ToString());
+            }
+
+        }
+    
+    public void BatchFlightUpload()
         {
             Console.WriteLine("Batch Flight Upload operation selected.");
-            // Add logic for batch flight upload
         }
 
         public void BookFlight()

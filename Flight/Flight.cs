@@ -17,7 +17,6 @@ namespace AirportTicketBookingSystem.Flights
         public FlightClass Class { get; set; }
         public decimal Price { get; set; }
 
-        // Constructor to initialize the flight properties
         public Flight(string flightNumber, string departureCountry, string destinationCountry,
                       DateTime departureDate, string departureAirport, string arrivalAirport,
                       FlightClass flightClass, decimal price)
@@ -30,6 +29,12 @@ namespace AirportTicketBookingSystem.Flights
             ArrivalAirport = arrivalAirport;
             Class = flightClass;
             Price = price;
+        }
+        public void Tostring()
+        {
+            Console.WriteLine( $"Flight Number: {FlightNumber}, Departure Country: {DepartureCountry}, Destination Country: {DestinationCountry}, " +
+                   $"Departure Date: {DepartureDate}, Departure Airport: {DepartureAirport}, Arrival Airport: {ArrivalAirport}, " +
+                   $"Class: {Class}, Price: {Price}");
         }
     }
 }
