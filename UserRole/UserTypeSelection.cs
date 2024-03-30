@@ -35,15 +35,11 @@ namespace AirportTicketBookingSystem.UserRole
                 var manager = new Manager(name, id);
                 ManagerOperations managerOperation = new ManagerOperations();
                 managerOperation.SelectManagerOperation(manager);
-                // Proceed with manager operations
-                // For demonstration, let's assume we have manager operations here
             }
             else if (userType == UserType.Passenger)
             {
                 // Passenger selected
                 Console.WriteLine("You have selected Passenger.");
-
-                // Prompt the user to enter their details
                 Console.Write("Enter your name: ");
                 string name = Console.ReadLine();
 

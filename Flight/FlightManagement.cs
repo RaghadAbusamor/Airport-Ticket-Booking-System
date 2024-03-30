@@ -1,5 +1,6 @@
 ﻿
-using Enums;
+using AirportTicketBookingSystem.Enums;
+using AirportTicketBookingSystem.FileSystem;
 
 namespace AirportTicketBookingSystem.Flights
 {
@@ -81,11 +82,19 @@ namespace AirportTicketBookingSystem.Flights
             }
 
         }
-    
-    public void BatchFlightUpload()
+
+        public async Task BatchFlightUpload()
         {
             Console.WriteLine("Batch Flight Upload operation selected.");
+            Console.WriteLine("Enter CSV file Path");
+            string filePath = Console.ReadLine();
+
+            var newFlights = await FileOperations.ReadFlightsFromCSVAsync(filePath);
+            Flights.AddRange(newFlights);
+
+            Console.WriteLine("Flights successfully uploaded.");
         }
+
 
         public void BookFlight()
         {

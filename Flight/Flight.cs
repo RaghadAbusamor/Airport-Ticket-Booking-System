@@ -1,20 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Enums;
+﻿
+using System.ComponentModel.DataAnnotations;
+using AirportTicketBookingSystem.Enums;
+using AirportTicketBookingSystem.ModelValidation;
+
 namespace AirportTicketBookingSystem.Flights
 {
     public class Flight
     {
+
+        [DynamicValidation("string", true, "",ErrorMessage = "Flight number is required")]
         public string FlightNumber { get; set; }
+
+        [DynamicValidation("string", true, "", ErrorMessage = "Departure country is required")]
         public string DepartureCountry { get; set; }
+
+        [DynamicValidation("string", true, "", ErrorMessage = "     ")]
         public string DestinationCountry { get; set; }
+        // validation using two ways: 1. DynamicValidation 2.FutureDate
+        [DynamicValidation("DateTime", true, "", ErrorMessage = "Departure date is required")]
+        [FutureDate(ErrorMessage = "Departure date must be today or in the future")]
         public DateTime DepartureDate { get; set; }
+
+        [DynamicValidation("string", true, "", ErrorMessage = "Departure airport is required")]
         public string DepartureAirport { get; set; }
+
+        [DynamicValidation("string", true, "", ErrorMessage = "Arrival airport is required")]
         public string ArrivalAirport { get; set; }
+
+        [DynamicValidation("FlightClass", true, "", ErrorMessage = "Flight class is required")]
         public FlightClass Class { get; set; }
+
+        [DynamicValidation("decimal", true, "", ErrorMessage = "Price is required")]
+        [Range(0, double.MaxValue, ErrorMessage = "Price can't be negative")]
         public decimal Price { get; set; }
 
         public Flight(string flightNumber, string departureCountry, string destinationCountry,
@@ -30,11 +47,11 @@ namespace AirportTicketBookingSystem.Flights
             Class = flightClass;
             Price = price;
         }
-        public void Tostring()
+        public override string ToString()
         {
-            Console.WriteLine( $"Flight Number: {FlightNumber}, Departure Country: {DepartureCountry}, Destination Country: {DestinationCountry}, " +
+            return $"Flight Number: {FlightNumber}, Departure Country: {DepartureCountry}, Destination Country: {DestinationCountry}, " +
                    $"Departure Date: {DepartureDate}, Departure Airport: {DepartureAirport}, Arrival Airport: {ArrivalAirport}, " +
-                   $"Class: {Class}, Price: {Price}");
+                   $"Class: {Class}, Price: {Price}";
         }
     }
 }

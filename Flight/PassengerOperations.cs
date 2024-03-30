@@ -1,6 +1,5 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.UserRole;
-using System;
 
 namespace AirportTicketBookingSystem.Flights
 {
