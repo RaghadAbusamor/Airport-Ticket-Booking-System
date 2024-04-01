@@ -13,18 +13,17 @@ namespace AirportTicketBookingSystem.UserRole
             Console.WriteLine("2. Passenger");
             Console.Write("Enter your choice (1 or 2): ");
             UserType userType;
-            while (!Enum.TryParse(Console.ReadLine(), out userType) || (userType != UserType.Manager && userType != UserType.Passenger))
+            while (!Enum.TryParse(Console.ReadLine(), out userType))
             {
                 Console.WriteLine("Invalid input. Please enter 1 for manager or 2 for passenger.");
                 Console.Write("Enter your choice (1 or 2): ");
             }
-
+            // Manager Selected
             if (userType == UserType.Manager)
             {
                 Console.WriteLine("You have selected Manager.");
                 Console.Write("Enter your name: ");
                 string name = Console.ReadLine();
-
                 Console.Write("Enter your ID: ");
                 int id;
                 while (!int.TryParse(Console.ReadLine(), out id))
@@ -32,7 +31,9 @@ namespace AirportTicketBookingSystem.UserRole
                     Console.WriteLine("Invalid input. Please enter a valid ID.");
                     Console.Write("Enter your ID: ");
                 }
+                // Create a new manager object with the entered details
                 var manager = new Manager(name, id);
+                // Display manager operations
                 ManagerOperations managerOperation = new ManagerOperations();
                 managerOperation.SelectManagerOperation(manager);
             }

@@ -1,5 +1,4 @@
-﻿
-using AirportTicketBookingSystem.Flights;
+﻿using AirportTicketBookingSystem.Flights;
 
 namespace AirportTicketBookingSystem.UserRole
 {

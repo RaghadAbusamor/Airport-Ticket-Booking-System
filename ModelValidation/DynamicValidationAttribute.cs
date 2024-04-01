@@ -6,9 +6,9 @@ namespace AirportTicketBookingSystem.ModelValidation
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class DynamicValidationAttribute : ValidationAttribute
     {
-        private readonly string _type;
-        private readonly bool _isRequired;
         private readonly string _allowedRange;
+        private readonly bool _isRequired;
+        private readonly string _type;
 
         public DynamicValidationAttribute(string type, bool isRequired, string allowedRange)
             : base("{0} field validation failed.")
@@ -40,8 +40,6 @@ namespace AirportTicketBookingSystem.ModelValidation
             }
 
             return ValidationResult.Success;
-           
-
         }
     }
 }

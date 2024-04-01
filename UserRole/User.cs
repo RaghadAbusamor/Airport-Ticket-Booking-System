@@ -1,7 +1,7 @@
 ﻿
 namespace AirportTicketBookingSystem.UserRole
 {
-    public class User
+    public abstract class User
     {
         public string Name { get; set; }
         public int Id { get; set; }

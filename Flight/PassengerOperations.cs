@@ -24,7 +24,7 @@ namespace AirportTicketBookingSystem.Flights
                 Console.WriteLine($"7. Exit");
                 Console.Write("Enter your choice: ");
                 PassengerOperation choice;
-                while (!Enum.TryParse(Console.ReadLine(), out choice) )
+                while (!Enum.TryParse(Console.ReadLine(), out choice))
                 {
                     Console.WriteLine("Invalid input. Please enter a valid operation.");
                     Console.Write("Enter your choice: ");
@@ -51,7 +51,8 @@ namespace AirportTicketBookingSystem.Flights
                     case PassengerOperation.ViewPersonalBookings:
                         flightManagement.ViewPersonalBookings();
                         break;
-                    case PassengerOperation.SearchBooking:  
+
+                    case PassengerOperation.SearchBooking:
                         flightManagement.FilterBookings();
                         break;
 
