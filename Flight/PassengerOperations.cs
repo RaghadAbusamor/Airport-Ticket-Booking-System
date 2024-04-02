@@ -14,14 +14,7 @@ namespace AirportTicketBookingSystem.Flights
 
             while (true)
             {
-                Console.WriteLine("Passenger Operations Menu:");
-                Console.WriteLine($"1. {PassengerOperation.BookFlight}");
-                Console.WriteLine($"2. {PassengerOperation.ListAllFlights}");
-                Console.WriteLine($"3. {PassengerOperation.CancelBooking}");
-                Console.WriteLine($"4. {PassengerOperation.EditBooking}");
-                Console.WriteLine($"5. {PassengerOperation.ViewPersonalBookings}");
-                Console.WriteLine($"6. {PassengerOperation.SearchBooking}");
-                Console.WriteLine($"7. Exit");
+                PasengerMenu();
                 Console.Write("Enter your choice: ");
                 PassengerOperation choice;
                 while (!Enum.TryParse(Console.ReadLine(), out choice))
@@ -66,6 +59,18 @@ namespace AirportTicketBookingSystem.Flights
                 Console.ReadKey(true);
                 Console.Clear();
             }
+        }
+
+        private static void PasengerMenu()
+        {
+            Console.WriteLine("Passenger Operations Menu:");
+            Console.WriteLine($"1. {PassengerOperation.BookFlight}");
+            Console.WriteLine($"2. {PassengerOperation.ListAllFlights}");
+            Console.WriteLine($"3. {PassengerOperation.CancelBooking}");
+            Console.WriteLine($"4. {PassengerOperation.EditBooking}");
+            Console.WriteLine($"5. {PassengerOperation.ViewPersonalBookings}");
+            Console.WriteLine($"6. {PassengerOperation.SearchBooking}");
+            Console.WriteLine($"7. Exit");
         }
     }
 }

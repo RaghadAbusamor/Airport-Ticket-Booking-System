@@ -9,8 +9,6 @@ namespace AirportTicketBookingSystem.Flights
         {
             Flights = new List<Flight>();
             PassengerFlights = new List<Flight>();
-
-            // Add a default flight
             AddDefaultFlight();
         }
 
@@ -23,8 +21,6 @@ namespace AirportTicketBookingSystem.Flights
                 Console.WriteLine("Batch Flight Upload operation selected.");
                 Console.WriteLine("Enter CSV file Path");
                 string filePath = Console.ReadLine();
-
-                // Simulating an error condition where the file path is empty
                 if (string.IsNullOrEmpty(filePath))
                 {
                     throw new FlightManagementException("File path cannot be empty.");
@@ -89,32 +85,40 @@ namespace AirportTicketBookingSystem.Flights
 
         public void EditBooking()
         {
-            Console.WriteLine("Edit Booking operation selected.");
-            Console.Write("Enter the number of bookings you want to edit: ");
-            String? flightNumber = Console.ReadLine();
-
-            // Find the selected booking with the entered flight number
-            Flight selectedBooking = PassengerFlights.Find(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
-            if (selectedBooking != null)
+            try
             {
+                Console.WriteLine("Edit Booking operation selected.");
+                Console.Write("Enter the number of bookings you want to edit: ");
+                string? flightNumber = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(flightNumber))
+                {
+                    throw new ArgumentException("Flight number cannot be empty.");
+                }
+
+                Flight selectedBooking = PassengerFlights.Find(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
+
+                if (selectedBooking == null)
+                {
+                    throw new FlightManagementException($"Booking for flight {flightNumber} not found.");
+                }
+
                 Console.Write($"Enter the new class for booking {flightNumber}: ");
                 string newClassInput = Console.ReadLine();
 
-                // Parse the new class input to FlightClass enum
                 if (Enum.TryParse(newClassInput, true, out FlightClass newClass))
                 {
-                    // Update the flight class
                     selectedBooking.Class = newClass;
                     Console.WriteLine($"Booking for flight {flightNumber} updated to class {newClass}.");
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid class: {newClassInput}. Please enter a valid class.");
+                    throw new ArgumentException($"Invalid class: {newClassInput}. Please enter a valid class.");
                 }
             }
-            else
+            catch (FlightManagementException ex)
             {
-                Console.WriteLine($"Booking for flight {flightNumber} not found.");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
@@ -128,62 +132,68 @@ namespace AirportTicketBookingSystem.Flights
         {
             Console.WriteLine("Enter parameter and value to filter flights (e.g., 'Price' = '500'):");
             Console.Write("Enter parameter: ");
-            string parameter = Console.ReadLine();
+            string parameterString = Console.ReadLine();
             Console.Write("Enter value: ");
             string value = Console.ReadLine();
 
-            List<Flight> filteredFlights = new List<Flight>();
-
-            switch (parameter.ToLower())
+            if (!Enum.TryParse(parameterString, true, out FilterParameter parameter))
             {
-                case "flight number":
-                    filteredFlights = Flights.Where(f => f.FlightNumber.Equals(value)).ToList();
-                    break;
+                Console.WriteLine("Invalid parameter.");
+                return;
+            }
 
-                case "price":
-                    decimal price;
-                    if (decimal.TryParse(value, out price))
-                        filteredFlights = Flights.Where(f => f.Price.Equals(price)).ToList();
+            Func<Flight, bool> filterPredicate;
+
+            switch (parameter)
+            {
+                case FilterParameter.FlightNumber:
+                    filterPredicate = f => f.FlightNumber.Equals(value);
+                    break;
+                case FilterParameter.Price:
+                    if (decimal.TryParse(value, out decimal price))
+                        filterPredicate = f => f.Price == price;
                     else
+                    {
                         Console.WriteLine("Invalid price value.");
+                        return;
+                    }
                     break;
-
-                case "departure country":
-                    filteredFlights = Flights.Where(f => f.DepartureCountry.Equals(value)).ToList();
+                case FilterParameter.DepartureCountry:
+                    filterPredicate = f => f.DepartureCountry.Equals(value);
                     break;
-
-                case "destination country":
-                    filteredFlights = Flights.Where(f => f.DestinationCountry.Equals(value)).ToList();
+                case FilterParameter.DestinationCountry:
+                    filterPredicate = f => f.DestinationCountry.Equals(value);
                     break;
-
-                case "departure date":
-                    DateTime departureDate;
-                    if (DateTime.TryParse(value, out departureDate))
-                        filteredFlights = Flights.Where(f => f.DepartureDate.Date.Equals(departureDate.Date)).ToList();
+                case FilterParameter.DepartureDate:
+                    if (DateTime.TryParse(value, out DateTime departureDate))
+                        filterPredicate = f => f.DepartureDate.Date == departureDate.Date;
                     else
+                    {
                         Console.WriteLine("Invalid departure date value.");
+                        return;
+                    }
                     break;
-
-                case "departure airport":
-                    filteredFlights = Flights.Where(f => f.DepartureAirport.Equals(value)).ToList();
+                case FilterParameter.DepartureAirport:
+                    filterPredicate = f => f.DepartureAirport.Equals(value);
                     break;
-
-                case "arrival airport":
-                    filteredFlights = Flights.Where(f => f.ArrivalAirport.Equals(value)).ToList();
+                case FilterParameter.ArrivalAirport:
+                    filterPredicate = f => f.ArrivalAirport.Equals(value);
                     break;
-
-                case "class":
-                    FlightClass flightClass;
-                    if (Enum.TryParse(value, true, out flightClass))
-                        filteredFlights = Flights.Where(f => f.Class.Equals(flightClass)).ToList();
+                case FilterParameter.Class:
+                    if (Enum.TryParse(value, true, out FlightClass flightClass))
+                        filterPredicate = f => f.Class == flightClass;
                     else
+                    {
                         Console.WriteLine("Invalid class value.");
+                        return;
+                    }
                     break;
-
                 default:
                     Console.WriteLine("Invalid parameter.");
-                    break;
+                    return;
             }
+
+            List<Flight> filteredFlights = Flights.Where(filterPredicate).ToList();
 
             Console.WriteLine("Filtered Flights:");
             Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-15} {5,-15} {6,-10} {7,-10}", "Flight Number", "Departure Country", "Destination Country", "Departure Date", "Departure Airport", "Arrival Airport", "Class", "Price");
@@ -198,6 +208,8 @@ namespace AirportTicketBookingSystem.Flights
             }
         }
 
+
+
         public void ListAllFlights()
         {
             try
@@ -205,8 +217,6 @@ namespace AirportTicketBookingSystem.Flights
                 Console.WriteLine("Listing all flights:\n");
                 Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-20} {5,-20} {6,-15} {7,-10}", "Flight", "Departure", "Destination", "Departure Date", "Departure Airport", "Arrival Airport", "Class", "Price");
                 Console.WriteLine(new string('-', 120));
-
-                // Check if the Flights list is empty
                 if (Flights.Count == 0)
                 {
                     throw new FlightManagementException("No flights found.");
