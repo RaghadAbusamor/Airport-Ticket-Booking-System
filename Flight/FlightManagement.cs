@@ -1,9 +1,11 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.FileSystem;
 using AirportTicketBookingSystem.Exceptions;
+using System.Linq;
 
 namespace AirportTicketBookingSystem.Flights
-{ public class FlightManagement
+{
+    public class FlightManagement
     {
         public FlightManagement()
         {
@@ -14,6 +16,7 @@ namespace AirportTicketBookingSystem.Flights
 
         public List<Flight> Flights { get; set; }
         public List<Flight> PassengerFlights { get; set; }
+
         public async Task BatchFlightUpload()
         {
             try
@@ -45,20 +48,17 @@ namespace AirportTicketBookingSystem.Flights
         {
             Console.WriteLine("Book a Flight operation selected.");
             Console.Write("Enter the number of flights you want to book: ");
-            String? FlightNumber = Console.ReadLine();
+            String? flightNumber = Console.ReadLine();
 
-            foreach (var flight in Flights)
+            var selectedFlight = Flights.FirstOrDefault(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
+            if (selectedFlight != null)
             {
-                if (flight.FlightNumber.Equals(FlightNumber, StringComparison.OrdinalIgnoreCase))
-                {
-                    Flight selectedFlight = Flights.Find(f => f.FlightNumber.Equals(flight.FlightNumber));
-                    PassengerFlights.Add(selectedFlight);
-                    Console.WriteLine($"Flight {FlightNumber} added to your bookings.");
-                }
-                else
-                {
-                    Console.WriteLine($"Flight with number {FlightNumber} not found.");
-                }
+                PassengerFlights.Add(selectedFlight);
+                Console.WriteLine($"Flight {flightNumber} added to your bookings.");
+            }
+            else
+            {
+                Console.WriteLine($"Flight with number {flightNumber} not found.");
             }
         }
 
@@ -66,20 +66,17 @@ namespace AirportTicketBookingSystem.Flights
         {
             Console.WriteLine("Cancel Booking operation selected.");
             Console.Write("Enter the number of bookings you want to cancel: ");
-            String? FlightNumber = Console.ReadLine();
+            String? flightNumber = Console.ReadLine();
 
-            foreach (var flight in Flights)
+            var selectedFlight = PassengerFlights.FirstOrDefault(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
+            if (selectedFlight != null)
             {
-                if (flight.FlightNumber.Equals(FlightNumber, StringComparison.OrdinalIgnoreCase))
-                {
-                    Flight selectedFlight = Flights.Find(f => f.FlightNumber.Equals(flight.FlightNumber));
-                    PassengerFlights.Remove(selectedFlight);
-                    Console.WriteLine($"Flight {FlightNumber} Canceled.");
-                }
-                else
-                {
-                    Console.WriteLine($"Flight with number {FlightNumber} not found.");
-                }
+                PassengerFlights.Remove(selectedFlight);
+                Console.WriteLine($"Flight {flightNumber} Canceled.");
+            }
+            else
+            {
+                Console.WriteLine($"Flight with number {flightNumber} not found.");
             }
         }
 
@@ -96,7 +93,7 @@ namespace AirportTicketBookingSystem.Flights
                     throw new ArgumentException("Flight number cannot be empty.");
                 }
 
-                Flight selectedBooking = PassengerFlights.Find(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
+                var selectedBooking = PassengerFlights.FirstOrDefault(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
 
                 if (selectedBooking == null)
                 {
@@ -195,20 +192,8 @@ namespace AirportTicketBookingSystem.Flights
 
             List<Flight> filteredFlights = Flights.Where(filterPredicate).ToList();
 
-            Console.WriteLine("Filtered Flights:");
-            Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-15} {5,-15} {6,-10} {7,-10}", "Flight Number", "Departure Country", "Destination Country", "Departure Date", "Departure Airport", "Arrival Airport", "Class", "Price");
-            Console.WriteLine(new string('-', 120));
-
-            foreach (var flight in filteredFlights)
-            {
-                Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-15} {5,-15} {6,-10} {7,-10}",
-                    flight.FlightNumber, flight.DepartureCountry, flight.DestinationCountry,
-                    flight.DepartureDate.ToString("yyyy-MM-dd HH:mm"), flight.DepartureAirport,
-                    flight.ArrivalAirport, flight.Class, flight.Price);
-            }
+            DisplayFilteredFlights(filteredFlights);
         }
-
-
 
         public void ListAllFlights()
         {
@@ -222,10 +207,7 @@ namespace AirportTicketBookingSystem.Flights
                     throw new FlightManagementException("No flights found.");
                 }
 
-                foreach (var flight in Flights)
-                {
-                    Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-20} {5,-20} {6,-15} {7,-10}", flight.FlightNumber, flight.DepartureCountry, flight.DestinationCountry, flight.DepartureDate.ToString("yyyy-MM-dd HH:mm"), flight.DepartureAirport, flight.ArrivalAirport, flight.Class, flight.Price);
-                }
+                DisplayFlights(Flights);
 
                 Console.WriteLine("\nDo you want to book a flight? (Y/N)");
                 string choice = Console.ReadLine();
@@ -259,10 +241,7 @@ namespace AirportTicketBookingSystem.Flights
                     throw new FlightManagementException("No bookings found.");
                 }
 
-                foreach (var flight in PassengerFlights)
-                {
-                    Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-20} {5,-20} {6,-15} {7,-10}", flight.FlightNumber, flight.DepartureCountry, flight.DestinationCountry, flight.DepartureDate.ToString("yyyy-MM-dd HH:mm"), flight.DepartureAirport, flight.ArrivalAirport, flight.Class, flight.Price);
-                }
+                DisplayFlights(PassengerFlights);
             }
             catch (FlightManagementException ex)
             {
@@ -274,6 +253,23 @@ namespace AirportTicketBookingSystem.Flights
         {
             Flights.Add(new Flight("ABC123", "USA", "UK", DateTime.Now.AddDays(1), "JFK", "LHR", FlightClass.Business, 1000));
             Flights.Add(new Flight("RST", "USA", "UK", DateTime.Now.AddDays(1), "JFK", "LHR", FlightClass.Business, 2000));
+        }
+
+        private void DisplayFlights(List<Flight> flights)
+        {
+            flights.ForEach(flight =>
+            {
+                Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-20} {5,-20} {6,-15} {7,-10}", flight.FlightNumber, flight.DepartureCountry, flight.DestinationCountry, flight.DepartureDate.ToString("yyyy-MM-dd HH:mm"), flight.DepartureAirport, flight.ArrivalAirport, flight.Class, flight.Price);
+            });
+        }
+
+        private void DisplayFilteredFlights(List<Flight> flights)
+        {
+            Console.WriteLine("Filtered Flights:");
+            Console.WriteLine("{0,-10} {1,-15} {2,-15} {3,-20} {4,-15} {5,-15} {6,-10} {7,-10}", "Flight Number", "Departure Country", "Destination Country", "Departure Date", "Departure Airport", "Arrival Airport", "Class", "Price");
+            Console.WriteLine(new string('-', 120));
+
+            DisplayFlights(flights);
         }
     }
 }
