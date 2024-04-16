@@ -13,9 +13,3 @@ namespace AirportTicketBookingSystem.UserRole
         }
     }
 }
-
-
-
-
-
-

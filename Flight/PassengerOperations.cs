@@ -46,7 +46,7 @@ namespace AirportTicketBookingSystem.Flights
                         break;
 
                     case PassengerOperation.SearchBooking:
-                        flightManagement.FilterBookings();
+                        flightManagement.Search();
                         break;
 
                     case PassengerOperation.Exit:

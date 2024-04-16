@@ -1,5 +1,4 @@
-﻿
-namespace AirportTicketBookingSystem.Enums
+﻿namespace AirportTicketBookingSystem.Enums
 {
     public enum PassengerOperation
     {
@@ -10,6 +9,5 @@ namespace AirportTicketBookingSystem.Enums
         ViewPersonalBookings = 5,
         SearchBooking =6,
         Exit = 7
-
     }
 }
