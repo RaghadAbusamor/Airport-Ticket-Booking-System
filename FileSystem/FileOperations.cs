@@ -1,32 +1,37 @@
 ﻿using CsvHelper;
-using CsvHelper.Configuration;
-using System.Collections.Generic;
 using System.Globalization;
-using AirportTicketBookingSystem.Flights;
 
 namespace AirportTicketBookingSystem.FileSystem
-{ 
-public static class FileOperations
 {
-    public static async Task<List<Flight>> ReadFlightsFromCSVAsync(string filePath)
+    public static class FileOperations
     {
-        List<Flight> flights = new List<Flight>();
-
-        using (var reader = new StreamReader(filePath))
-        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        public static async Task<List<T>> ReadFromCSVAsync<T>(string filePath)
         {
-            // Skip header record
-            await csv.ReadAsync();
-            csv.ReadHeader();
+            List<T> records = new List<T>();
 
-            while (await csv.ReadAsync())
+            using (var reader = new StreamReader(filePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                Flight flight = csv.GetRecord<Flight>();
-                flights.Add(flight);
+                await csv.ReadAsync();
+                csv.ReadHeader();
+
+                while (await csv.ReadAsync())
+                {
+                    T record = csv.GetRecord<T>();
+                    records.Add(record);
+                }
+            }
+
+            return records;
+        }
+        public static async Task WriteToCSVAsync<T>(string filePath, T data)
+        {
+            using (var writer = new StreamWriter(filePath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                await csv.WriteRecordsAsync(new List<T> { data });
             }
         }
 
-        return flights;
     }
-}
 }

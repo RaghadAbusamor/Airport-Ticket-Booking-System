@@ -1,5 +1,4 @@
-﻿
-namespace AirportTicketBookingSystem.UserRole
+﻿namespace AirportTicketBookingSystem.UserRole
 {
     public abstract class User
     {

@@ -3,7 +3,7 @@
     public enum FilterParameter
     {
         FlightNumber = 1,
-        Price =2 ,
+        Price = 2,
         DepartureCountry = 3,
         DestinationCountry = 4,
         DepartureDate = 5,

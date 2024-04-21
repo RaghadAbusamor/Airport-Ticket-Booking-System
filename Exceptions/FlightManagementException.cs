@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AirportTicketBookingSystem.Exceptions
+﻿namespace AirportTicketBookingSystem.Exceptions
 {
     public class FlightManagementException : Exception
     {
