@@ -48,9 +48,9 @@ namespace AirportTicketBookingSystem.Flights
             _managementService.Exit();
         }
 
-        public void FilterBookings()
+        public async void FilterBookings()
         {
-            _filterService.FilterBookingsAsync();
+            await _filterService.FilterBookingsAsync();
         }
 
         public void ListAllFlights(int PassengerId)
