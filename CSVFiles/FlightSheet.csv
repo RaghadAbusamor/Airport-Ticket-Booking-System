@@ -1,0 +1,5 @@
+FlightNumber,DepartureCountry,DestinationCountry,DepartureDate,DepartureAirport,ArrivalAirport,Class,Price
+111,palestine,jordan,5/4/2025,palestine,QueenAlia,Economy,100
+111,palestine,jordan,5/4/2025,palestine,QueenAlia,Business,500
+111,palestine,jordan,5/4/2025,palestine,QueenAlia,FirstClass,1000
+

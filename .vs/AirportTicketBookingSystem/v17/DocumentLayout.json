@@ -3,17 +3,17 @@
   "WorkspaceRootPath": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{13E76FD4-312C-4E50-A65C-72972107A8AD}|..\\AirportTicketBookingSystem.Test\\AirportTicketBookingSystem.Test.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem.test\\flightmanagement.test\\cancelflighttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{13E76FD4-312C-4E50-A65C-72972107A8AD}|..\\AirportTicketBookingSystem.Test\\AirportTicketBookingSystem.Test.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem.test\\flightmanagement.test\\searchservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{13E76FD4-312C-4E50-A65C-72972107A8AD}|..\\AirportTicketBookingSystem.Test\\AirportTicketBookingSystem.Test.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem.test\\flightmanagement.test\\editservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8690F606-5516-4A7C-A628-1139BE2BE7C4}|AirportTicketBookingSystem.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem\\flights\\flightservices\\flightsearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8690F606-5516-4A7C-A628-1139BE2BE7C4}|AirportTicketBookingSystem.csproj|solutionrelative:flights\\flightservices\\flightsearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E76FD4-312C-4E50-A65C-72972107A8AD}|..\\AirportTicketBookingSystem.Test\\AirportTicketBookingSystem.Test.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem.test\\flightmanagement.test\\cancelflighttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E76FD4-312C-4E50-A65C-72972107A8AD}|..\\AirportTicketBookingSystem.Test\\AirportTicketBookingSystem.Test.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem.test\\flightmanagement.test\\editservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8690F606-5516-4A7C-A628-1139BE2BE7C4}|AirportTicketBookingSystem.csproj|c:\\users\\ragha\\onedrive\\desktop\\fts-internship\\airportticketbookingsystem\\flights\\flight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -65,7 +65,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 349,
+          "DockedWidth": 536,
           "SelectedChildIndex": 3,
           "Children": [
             {
@@ -83,12 +83,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "SearchServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
+              "RelativeDocumentMoniker": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
+              "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
+              "RelativeToolTip": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-12T09:57:54.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "CancelFlightTests.cs",
               "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\CancelFlightTests.cs",
               "RelativeDocumentMoniker": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\CancelFlightTests.cs",
               "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\CancelFlightTests.cs",
               "RelativeToolTip": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\CancelFlightTests.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAwCIAAAAnAAAA",
+              "ViewState": "AQIAABoAAAAAAAAAAAAAwCsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-15T01:53:05.92Z",
               "EditorCaption": ""
@@ -103,45 +116,21 @@
               "RelativeToolTip": "Flights\\Flight.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAAQwCYAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T22:45:11.205Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SearchServiceTests.cs",
-              "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
-              "RelativeDocumentMoniker": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
-              "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
-              "RelativeToolTip": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\SearchServiceTests.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAAAEcAAAALAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T09:57:54.613Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EditServiceTests.cs",
-              "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
-              "RelativeDocumentMoniker": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
-              "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
-              "RelativeToolTip": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAzwB4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T09:57:44.396Z",
+              "WhenOpened": "2024-05-14T22:45:11.205Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FlightSearchService.cs",
-              "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\Flights\\FlightServices\\FlightSearchService.cs",
-              "RelativeDocumentMoniker": "Flights\\FlightServices\\FlightSearchService.cs",
-              "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\Flights\\FlightServices\\FlightSearchService.cs",
-              "RelativeToolTip": "Flights\\FlightServices\\FlightSearchService.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAQwEEAAAABAAAA",
+              "Title": "EditServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
+              "RelativeDocumentMoniker": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
+              "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
+              "RelativeToolTip": "..\\AirportTicketBookingSystem.Test\\FlightManagement.Test\\EditServiceTests.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAuwAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T22:48:36.283Z"
+              "WhenOpened": "2024-05-12T09:57:44.396Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -153,7 +142,8 @@
               "RelativeToolTip": "..\\AirportTicketBookingSystem.Test\\FileSystem.Test\\FileOperationsTests.cs",
               "ViewState": "AQIAADIAAAAAAAAAAAAgwEAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T14:41:45.445Z"
+              "WhenOpened": "2024-05-12T14:41:45.445Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -165,7 +155,8 @@
               "RelativeToolTip": "FileSystem\\FileOperations.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-16T16:45:59.825Z"
+              "WhenOpened": "2024-04-16T16:45:59.825Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -254,7 +245,27 @@
               "RelativeToolTip": "UserRole\\UserTypeSelectionService.cs",
               "ViewState": "AQIAAAcAAAAAAAAAAAAzwBQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T05:04:40.365Z"
+              "WhenOpened": "2024-04-19T05:04:40.365Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 13,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FlightSearchService.cs",
+              "DocumentMoniker": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\Flights\\FlightServices\\FlightSearchService.cs",
+              "RelativeDocumentMoniker": "Flights\\FlightServices\\FlightSearchService.cs",
+              "ToolTip": "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\Flights\\FlightServices\\FlightSearchService.cs",
+              "RelativeToolTip": "Flights\\FlightServices\\FlightSearchService.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAqwDoAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T22:48:36.283Z",
+              "EditorCaption": ""
             }
           ]
         }
