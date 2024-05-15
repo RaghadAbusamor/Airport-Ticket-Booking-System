@@ -7,13 +7,13 @@ namespace AirportTicketBookingSystem.UserRole
     {
         public string PhoneNumber { get; set; }
         public string Passport { get; set; }
-        public List<Flight> BookedFlights { get; private set; }
+        public List<FlightData> BookedFlights { get; private set; }
 
         public Passenger(string name, int id, string phoneNumber, string passport) : base(name, id)
         {
             PhoneNumber = phoneNumber;
             Passport = passport;
-            BookedFlights = new List<Flight>();
+            BookedFlights = new List<FlightData>();
         }
 
         public override string ToString()

@@ -8,7 +8,7 @@ namespace AirportTicketBookingSystem.Flights
     public class FlightManagementService
     {
         private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
-        public List<Flight> Flights { get; set; }
+        public List<FlightData> Flights { get; set; }
         public async Task BatchFlightUploadAsync()
         {
             try
@@ -21,7 +21,7 @@ namespace AirportTicketBookingSystem.Flights
                     throw new FlightManagementException("File path cannot be empty.");
                 }
 
-                List<Flight> newFlights = await FileOperations.ReadFromCSVAsync<Flight>(filePath);
+                List<FlightData> newFlights = await FileOperations.ReadFromCSVAsync<FlightData>(filePath);
                 Flights.AddRange(newFlights);
 
                 Console.WriteLine("Flights successfully uploaded.");
@@ -134,7 +134,7 @@ namespace AirportTicketBookingSystem.Flights
 
             DisplayFlights(entities);
         }
-        public static Flight FindBookingByFlightNumber(List<Flight> bookings, string flightNumber)
+        public static FlightData FindBookingByFlightNumber(List<FlightData> bookings, string flightNumber)
         {
             return bookings.FirstOrDefault(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
         }

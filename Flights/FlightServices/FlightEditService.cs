@@ -22,7 +22,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
                     throw new ArgumentException("Flight number cannot be empty.");
                 }
 
-                List<FlightData> bookings = await FileOperations.ReadFromCSVAsync<FlightData>(PassengersFlightsFile);
+                List<DataModel.FlightData> bookings = await FileOperations.ReadFromCSVAsync<DataModel.FlightData>(PassengersFlightsFile);
                 var selectedBooking = bookings.FirstOrDefault(b => b.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
 
                 if (selectedBooking == null)
@@ -43,7 +43,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
             }
         }
 
-        private FlightClass GetNewBookingClass()
+        public FlightClass GetNewBookingClass()
         {
             while (true)
             {

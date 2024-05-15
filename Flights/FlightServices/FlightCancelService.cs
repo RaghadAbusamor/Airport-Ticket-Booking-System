@@ -16,7 +16,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 
             try
             {
-                List<Flight> bookings = FileOperations.ReadFromCSVAsync<Flight>(PassengersFlightsFile).Result;
+                List<FlightData> bookings = FileOperations.ReadFromCSVAsync<FlightData>(PassengersFlightsFile).Result;
                 var selectedBooking = FlightManagementService.FindBookingByFlightNumber(bookings, flightNumber);
 
                 if (selectedBooking == null)

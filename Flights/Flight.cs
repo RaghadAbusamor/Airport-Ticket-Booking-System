@@ -1,11 +1,11 @@
-﻿using AirportTicketBookingSystem.Flight.DataModel;
+﻿using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.ModelValidation;
 
 namespace AirportTicketBookingSystem.Flights
 {
-    public class Flight
+    public class FlightData
     {
-        public Flight(FlightData data)
+        public FlightData(DataModel.FlightData data)
         {
             FlightNumber = data.FlightNumber;
             DepartureCountry = data.DepartureCountry;

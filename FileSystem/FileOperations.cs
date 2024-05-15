@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace AirportTicketBookingSystem.FileSystem
 {
-    public static class FileOperations
+    public class FileOperations
     {
         public static Task<List<T>> ReadFromCSVAsync<T>(string filePath)
         {

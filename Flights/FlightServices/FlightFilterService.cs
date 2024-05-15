@@ -6,13 +6,13 @@ namespace AirportTicketBookingSystem.Flights
     public class FlightFilterService
     {
         private const string Booking = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
-        private List<Flight> _flights;
-
+        private List<FlightData> _flights;
+ 
         public async Task FilterBookingsAsync()
         {
             try
             {
-                _flights = await FileOperations.ReadFromCSVAsync<Flight>(Booking);
+                _flights = await FileOperations.ReadFromCSVAsync<FlightData>(Booking);
 
                 Console.WriteLine("Enter parameter and value to filter flights (e.g., 'class' = 'busniss'):");
                 Console.Write("Enter parameter: ");
@@ -26,7 +26,7 @@ namespace AirportTicketBookingSystem.Flights
                     return;
                 }
 
-                Func<Flight, bool> filterPredicate = GetFilterPredicate(parameter, value);
+                Func<FlightData, bool> filterPredicate = GetFilterPredicate(parameter, value);
 
                 if (filterPredicate == null)
                 {
@@ -34,7 +34,7 @@ namespace AirportTicketBookingSystem.Flights
                     return;
                 }
 
-                List<Flight> filteredFlights = _flights.Where(filterPredicate).ToList();
+                List<FlightData> filteredFlights = _flights.Where(filterPredicate).ToList();
                 FlightManagementService.DisplayFilteredFlights(filteredFlights);
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace AirportTicketBookingSystem.Flights
             }
         }
 
-        private Func<Flight, bool> GetFilterPredicate(FilterParameter parameter, string value)
+        public Func<FlightData, bool> GetFilterPredicate(FilterParameter parameter, string value)
         {
             switch (parameter)
             {
