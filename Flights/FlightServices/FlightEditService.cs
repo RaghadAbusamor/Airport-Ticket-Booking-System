@@ -1,7 +1,6 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
-using AirportTicketBookingSystem.Flights.DataModel;
 
 namespace AirportTicketBookingSystem.Flights.FlightServices
 {

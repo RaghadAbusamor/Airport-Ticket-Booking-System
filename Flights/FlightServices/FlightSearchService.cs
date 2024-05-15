@@ -1,5 +1,4 @@
 ﻿using AirportTicketBookingSystem.Enums;
-using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.FileSystem;
 
 
@@ -9,7 +8,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
     {
         private const string Booking = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
         public List<DataModel.FlightData> _flights;
-        public async         Task
+        public async Task
 SearchBookingAsync()
         {
             _flights = await FileOperations.ReadFromCSVAsync<DataModel.FlightData>(Booking);
