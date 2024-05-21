@@ -1,7 +1,7 @@
 ﻿using AirportTicketBookingSystem.FileSystem;
 using FluentAssertions;
 
-namespace AirportTicketBookingSystem.Test
+namespace AirportTicketBookingSystem.Test.FileSystem.Tests
 {
     public class FileOperationsTests
     {
@@ -9,8 +9,13 @@ namespace AirportTicketBookingSystem.Test
         [Fact]
         public async Task ReadFromCsvAsync_EmptyFile_ShouldReturnEmptyList()
         {
+            // Arrange
             var tempFilePath = Path.GetTempFileName();
+
+            // Act
             var result = await FileOperations.ReadFromCSVAsync<TestData>(tempFilePath);
+
+            // Assert
             result.Should().BeEmpty();
             File.Delete(tempFilePath);
         }
@@ -18,20 +23,25 @@ namespace AirportTicketBookingSystem.Test
         [Fact]
         public async Task ReadFromCsvAsync_NonExistentFile_ShouldThrowException()
         {
-            var tempFilePath = Path.GetTempFileName();
+            // Arrange
             var nonExistentFilePath = Path.Combine(Path.GetTempPath(), "nonexistent_file.csv");
+
+            // Act & Assert
             await Assert.ThrowsAsync<FileNotFoundException>(async () =>
-            await FileOperations.ReadFromCSVAsync<TestData>(nonExistentFilePath));
+                await FileOperations.ReadFromCSVAsync<TestData>(nonExistentFilePath));
         }
 
         [Fact]
         public async Task ReadFromCsvAsync_ValidData_ShouldReturnCorrectData()
         {
+            // Arrange
             var tempFilePath = Path.GetTempFileName();
-            await File.WriteAllLinesAsync(tempFilePath,
-                new[] { "Id,Name", "1,Test 1", "2,Test 2" });
+            await File.WriteAllLinesAsync(tempFilePath, new[] { "Id,Name", "1,Test 1", "2,Test 2" });
+
+            // Act
             var result = await FileOperations.ReadFromCSVAsync<TestData>(tempFilePath);
 
+            // Assert
             var expected = new List<TestData>
             {
                 new TestData { Id = 1, Name = "Test 1" },
@@ -41,14 +51,15 @@ namespace AirportTicketBookingSystem.Test
             File.Delete(tempFilePath);
         }
 
-
         [Fact]
         public async Task WriteToCsvAsync_NonExistentDirectory_ShouldThrowException()
         {
+            // Arrange
             var nonExistentDirectoryPath = Path.Combine(Path.GetTempPath(), "nonexistent_directory");
             var nonExistentFilePath = Path.Combine(nonExistentDirectoryPath, "nonexistent_file.csv");
             var data = new List<TestData>();
 
+            // Act & Assert
             await Assert.ThrowsAsync<DirectoryNotFoundException>(async () =>
                 await FileOperations.WriteToCSVAsync(nonExistentFilePath, data));
         }

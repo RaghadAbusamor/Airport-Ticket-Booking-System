@@ -1,11 +1,11 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.FileSystem;
 
-namespace AirportTicketBookingSystem.Flights
+namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightFilterService
     {
-        private const string Booking = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
+        private const string Booking = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
         private List<FlightData> _flights;
 
         public async Task FilterBookingsAsync()
@@ -33,6 +33,7 @@ namespace AirportTicketBookingSystem.Flights
                     Console.WriteLine("Invalid parameter value.");
                     return;
                 }
+
 
                 List<FlightData> filteredFlights = _flights.Where(filterPredicate).ToList();
                 FlightManagementService.DisplayFilteredFlights(filteredFlights);

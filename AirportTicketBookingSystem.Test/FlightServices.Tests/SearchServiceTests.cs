@@ -3,7 +3,7 @@ using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
 using FlightClassPrice = AirportTicketBookingSystem.Flights.DataModel.FlightClassPrice;
 
-namespace AirportTicketBookingSystem.Test
+namespace AirportTicketBookingSystem.Test.FlightServices.Tests
 {
     public class FlightSearchServiceTests
     {

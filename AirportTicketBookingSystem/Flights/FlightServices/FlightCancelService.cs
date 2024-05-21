@@ -6,8 +6,12 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightCancelService
     {
-        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
-
+        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
+        private readonly IFileOperations _fileOperations;
+        public FlightCancelService(IFileOperations fileOperations)
+        {
+            _fileOperations = fileOperations;
+        }
         public async Task CancelBookingAsync()
         {
             Console.WriteLine("Cancel Booking operation selected.");
@@ -16,7 +20,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 
             try
             {
-                List<FlightData> bookings = FileOperations.ReadFromCSVAsync<FlightData>(PassengersFlightsFile).Result;
+                List<FlightData> bookings = _fileOperations.ReadFromCSVAsync<FlightData>(PassengersFlightsFile).Result;
                 var selectedBooking = FlightManagementService.FindBookingByFlightNumber(bookings, flightNumber);
 
                 if (selectedBooking == null)
@@ -26,7 +30,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 
                 bookings.Remove(selectedBooking);
 
-                await FileOperations.WriteToCSVAsync(PassengersFlightsFile, bookings);
+                await _fileOperations.WriteToCSVAsync(PassengersFlightsFile, bookings);
 
                 Console.WriteLine($"Flight {flightNumber} canceled successfully.");
             }
