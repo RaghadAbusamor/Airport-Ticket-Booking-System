@@ -1,4 +1,6 @@
-﻿namespace AirportTicketBookingSystem.Test.FlightServices.Tests
+﻿using AirportTicketBookingSystem.Flights;
+
+namespace AirportTicketBookingSystem.Tests
 {
     public class FlightFilterServiceTests
     {

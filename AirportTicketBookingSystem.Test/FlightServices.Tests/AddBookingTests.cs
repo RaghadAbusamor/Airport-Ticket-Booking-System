@@ -5,7 +5,7 @@ using AirportTicketBookingSystem.Flights.DataModel;
 using Moq;
 using _flight = AirportTicketBookingSystem.Flights.DataModel.FlightData;
 
-namespace AirportTicketBookingSystem.Test.FlightServices.Tests
+namespace AirportTicketBookingSystem.Test.FlightServices.Test
 {
     public class AddBookingTests
     {
@@ -50,7 +50,7 @@ namespace AirportTicketBookingSystem.Test.FlightServices.Tests
 
             // Assert
             Assert.Contains("Flight ABC123 added to your bookings.", consoleOutput.ToString().Trim());
-            mockFileOperations.Verify(m => m.WriteToCSVAsync(It.IsAny<string>(), It.IsAny<BookingEntry>()), Times.Once);
+            mockFileOperations.Verify(m => m.WriteToCSVAsync<BookingEntry>(It.IsAny<string>(), It.IsAny<BookingEntry>()), Times.Once);
         }
 
     }

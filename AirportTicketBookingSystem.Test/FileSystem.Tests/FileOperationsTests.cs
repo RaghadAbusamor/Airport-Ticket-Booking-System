@@ -1,7 +1,7 @@
 ﻿using AirportTicketBookingSystem.FileSystem;
 using FluentAssertions;
 
-namespace AirportTicketBookingSystem.Test.FileSystem.Tests
+namespace AirportTicketBookingSystem.Test
 {
     public class FileOperationsTests
     {

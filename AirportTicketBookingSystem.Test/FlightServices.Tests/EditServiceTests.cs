@@ -5,7 +5,7 @@ using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
 using Moq;
 
-namespace AirportTicketBookingSystem.Test.FlightServices.Tests
+namespace AirportTicketBookingSystem.Tests
 {
     public class EditServiceTests
     {

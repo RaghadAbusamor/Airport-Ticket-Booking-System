@@ -1,7 +1,7 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.FileSystem;
 
-namespace AirportTicketBookingSystem.Flights.FlightServices
+namespace AirportTicketBookingSystem.Flights
 {
     public class FlightFilterService
     {

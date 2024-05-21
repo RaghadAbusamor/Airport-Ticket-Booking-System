@@ -56,7 +56,7 @@ SearchBookingAsync()
                     (!departureDate.HasValue || f.DepartureDate.Date == departureDate.Value.Date) &&
                     (string.IsNullOrEmpty(departureAirport) || f.DepartureAirport.Equals(departureAirport, StringComparison.OrdinalIgnoreCase)) &&
                     (string.IsNullOrEmpty(arrivalAirport) || f.ArrivalAirport.Equals(arrivalAirport, StringComparison.OrdinalIgnoreCase)) &&
-                    (string.IsNullOrEmpty(classStr) || (Enum.TryParse(classStr, true, out FlightClass flightClass) && f.Prices.Any(p => p.Class == flightClass))) &&
+                    (string.IsNullOrEmpty(classStr) || Enum.TryParse(classStr, true, out FlightClass flightClass) && f.Prices.Any(p => p.Class == flightClass)) &&
                     (!price.HasValue || f.Prices.Any(p => p.Price == price.Value))
                 )
                 .ToList();
