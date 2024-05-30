@@ -1,3 +1,4 @@
+
 # ✈️ Airport Ticket Booking System
 
 ## 🎯 Objective:
@@ -29,3 +30,4 @@ The application uses the file system as the data storage layer.
 
 The Airport Ticket Booking System is complete and ready for use.
 
+[![build and test](https://github.com/RaghadAbusamor/Airport-Ticket-Booking-System/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/RaghadAbusamor/Airport-Ticket-Booking-System/actions/workflows/build-and-test.yml)
