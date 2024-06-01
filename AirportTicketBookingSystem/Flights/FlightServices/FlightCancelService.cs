@@ -1,17 +1,17 @@
 ﻿using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
-
+using AirportTicketBookingSystem.Flights.DataModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightCancelService
     {
         private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
-        private readonly IFileOperations _fileOperations;
-        public FlightCancelService(IFileOperations fileOperations)
-        {
-            _fileOperations = fileOperations;
-        }
+
         public async Task CancelBookingAsync()
         {
             Console.WriteLine("Cancel Booking operation selected.");
@@ -20,8 +20,13 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 
             try
             {
-                List<FlightData> bookings = _fileOperations.ReadFromCSVAsync<FlightData>(PassengersFlightsFile).Result;
-                var selectedBooking = FlightManagementService.FindBookingByFlightNumber(bookings, flightNumber);
+                var bookings = await FileOperations.ReadFromCSVAsync<BookingEntry>(PassengersFlightsFile);
+                if (bookings == null)
+                {
+                    throw new FlightManagementException("No bookings found.");
+                }
+
+                var selectedBooking = bookings.FirstOrDefault(b => b.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
 
                 if (selectedBooking == null)
                 {
@@ -30,7 +35,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 
                 bookings.Remove(selectedBooking);
 
-                await _fileOperations.WriteToCSVAsync(PassengersFlightsFile, bookings);
+                await FileOperations.WriteToCSVAsync(PassengersFlightsFile, bookings);
 
                 Console.WriteLine($"Flight {flightNumber} canceled successfully.");
             }
@@ -38,7 +43,6 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
             {
                 Console.WriteLine($"An error occurred while canceling the booking: {ex.Message}");
             }
-
         }
     }
 }

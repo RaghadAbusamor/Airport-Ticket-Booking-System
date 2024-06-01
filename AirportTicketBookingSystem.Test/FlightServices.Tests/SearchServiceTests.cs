@@ -38,16 +38,11 @@ namespace AirportTicketBookingSystem.Test
             List<FlightData> flights = new List<FlightData> { flightData1, flightData2, flightData3 };
             var flightSearchService = new FlightSearchService();
             flightSearchService._flights = flights;
-            // Arrange
             // Act
             var searchResults = flightSearchService.SearchFlights(null, null, null, null, null, null, null, null);
 
             // Assert
-            Assert.Equal(3, searchResults.Count); // Expecting all flights to be returned
+            Assert.Equal(3, searchResults.Count); 
         }
-
-
-
-
     }
 }

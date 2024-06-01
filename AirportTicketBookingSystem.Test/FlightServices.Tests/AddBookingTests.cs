@@ -14,7 +14,12 @@ namespace AirportTicketBookingSystem.Test.FlightServices.Test
         {
             // Arrange
             var mockFileOperations = new Mock<IFileOperations>();
-            var flightManagementService = new FlightManagementService { Flights = new List<_flight>(), FileOperations = mockFileOperations.Object };
+            var flightManagementService = new FlightManagementService
+            {
+                Flights = new List<_flight>(),
+                FileOperations = mockFileOperations.Object
+            };
+
             var consoleOutput = new StringWriter();
             Console.SetOut(consoleOutput);
             Console.SetIn(new StringReader("ABC123"));
@@ -23,7 +28,8 @@ namespace AirportTicketBookingSystem.Test.FlightServices.Test
             await flightManagementService.BookFlightAsync(It.IsAny<int>());
 
             // Assert
-            Assert.Contains("Flight with number ABC123 not found.", consoleOutput.ToString().Trim());
+            var output = consoleOutput.ToString().Trim();
+            Assert.Contains("Flight with number ABC123 not found.", output);
         }
         [Fact]
         public async Task BookFlightAsync_FlightFound_WriteToCSVAndDisplaySuccessMessage()

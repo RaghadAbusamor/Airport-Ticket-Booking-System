@@ -6,7 +6,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightEditService
     {
-        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
+        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
 
         public async Task EditBookingAsync()
         {

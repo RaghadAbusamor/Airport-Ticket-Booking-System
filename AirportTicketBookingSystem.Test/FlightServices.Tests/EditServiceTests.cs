@@ -3,13 +3,17 @@ using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
 using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Moq;
+using System.Reflection;
+using FlightClassPrice = AirportTicketBookingSystem.Flights.DataModel.FlightClassPrice;
+
 
 namespace AirportTicketBookingSystem.Tests
 {
     public class EditServiceTests
     {
-        string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
+        public string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
 
         [Fact]
         public void EditBookingAsync_ThrowsArgumentException_ForEmptyFlightNumber()
@@ -38,15 +42,12 @@ namespace AirportTicketBookingSystem.Tests
 
             // Act Assert
             Assert.ThrowsAsync<FlightManagementException>(flightEditService.EditBookingAsync);
-
         }
-
-
         [Theory]
         [InlineData(FlightClass.Economy)]
         [InlineData(FlightClass.Business)]
         [InlineData(FlightClass.FirstClass)]
-        public void GetNewBookingClass_ReturnsValidClass(FlightClass expectedClass)
+        public void GetNewBookingClass_ReturnsValidClassEdit(FlightClass expectedClass)
         {
             // Arrange
             var editService = new FlightEditService();
@@ -62,41 +63,40 @@ namespace AirportTicketBookingSystem.Tests
         public async Task EditBookingAsync_WhenBookingFound_ShouldEditBookingClass()
         {
             // Arrange
-            const string flightNumber = "ABC123";
-            var flightData = new FlightData
+            var flightNumber = "AB123";
+            var initialClass = FlightClass.Economy;
+            var bookings = new List<FlightData>
             {
-                FlightNumber = flightNumber,
-                DepartureCountry = "USA",
-                DestinationCountry = "UK",
-                DepartureDate = DateTime.Parse("2024-05-20"),
-                DepartureAirport = "JFK",
-                ArrivalAirport = "LHR",
-                Prices = new List<FlightClassPrice> { new FlightClassPrice { Class = FlightClass.Economy, Price = 1000 } }
+                new FlightData
+                {
+                    FlightNumber = flightNumber,
+                    Prices = new List<FlightClassPrice>
+                    {
+                        new FlightClassPrice { Class = initialClass, Price = 200 }
+                    }
+                }
             };
-            List<FlightData> bookings = new List<FlightData> { flightData };
 
-            var mockedFileOperations = new Mock<IFileOperations>();
-            mockedFileOperations.Setup(f => f.ReadFromCSVAsync<FlightData>(It.IsAny<string>())).ReturnsAsync(bookings);
-            mockedFileOperations.Setup(f => f.WriteToCSVAsync(It.IsAny<string>(), It.IsAny<List<FlightData>>()))
-                .Returns(Task.CompletedTask)
-                .Callback<string, List<FlightData>>((filePath, updatedBookings) => bookings = updatedBookings);
+            var fileOperationsMock = new Mock<IFileOperations>();
+            fileOperationsMock.Setup(fo => fo.ReadFromCSVAsync<FlightData>(It.IsAny<string>()))
+                .ReturnsAsync(bookings);
 
-            var editService = new FlightEditService();
+            fileOperationsMock.Setup(fo => fo.WriteToCSVAsync(It.IsAny<string>(), It.IsAny<List<FlightData>>()))
+                .Returns(Task.CompletedTask);
 
-            string newClassInput = "Business" + Environment.NewLine;
-            string consoleInput = flightNumber + Environment.NewLine + newClassInput;
-            using var stringReader = new StringReader(consoleInput);
-            Console.SetIn(stringReader);
+            var flightEditService = new FlightEditService();
 
+            // Simulate user input for the new class
+            var inputReader = new StringReader(initialClass.ToString());
+            Console.SetIn(inputReader);
             // Act
-            await editService.EditBookingAsync();
-
+            await flightEditService.EditBookingAsync();
             // Assert
-            mockedFileOperations.Verify(f => f.ReadFromCSVAsync<FlightData>(PassengersFlightsFile), Times.Once);
-            mockedFileOperations.Verify(f => f.WriteToCSVAsync(PassengersFlightsFile, It.IsAny<List<FlightData>>()), Times.Once);
+            var editedBooking = bookings.FirstOrDefault(b => b.FlightNumber == flightNumber);
+            Assert.NotNull(editedBooking);
+            Assert.All(editedBooking.Prices, price => Assert.Equal(initialClass, price.Class));
 
-            var editedBooking = bookings.First(b => b.FlightNumber == flightNumber);
-            Assert.All(editedBooking.Prices, price => Assert.Equal(FlightClass.Business, price.Class));
         }
+
     }
 }

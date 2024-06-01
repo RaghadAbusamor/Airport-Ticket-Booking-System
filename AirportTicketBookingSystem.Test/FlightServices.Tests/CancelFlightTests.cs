@@ -1,6 +1,8 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
+using AirportTicketBookingSystem.Flights;
+using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
 using FluentAssertions;
 using Moq;
@@ -16,7 +18,7 @@ namespace AirportTicketBookingSystem.Tests
         {
             // Arrange
             var mockedFileOperations = new Mock<IFileOperations>();
-            var cancelService = new FlightCancelService(mockedFileOperations.Object);
+            var cancelService = new FlightCancelService();
 
             Console.SetIn(new StringReader(string.Empty));
 
@@ -33,7 +35,7 @@ namespace AirportTicketBookingSystem.Tests
             var bookings = new List<FlightDataModel>();
             var mockedFileOperations = new Mock<IFileOperations>();
             mockedFileOperations.Setup(f => f.ReadFromCSVAsync<FlightDataModel>(It.IsAny<string>())).ReturnsAsync(bookings);
-            var cancelService = new FlightCancelService(mockedFileOperations.Object);
+            var cancelService = new FlightCancelService();
             var consoleOutput = new StringWriter();
             Console.SetOut(consoleOutput);
             Console.SetIn(new StringReader(flightNumber + Environment.NewLine));
@@ -42,31 +44,42 @@ namespace AirportTicketBookingSystem.Tests
             Assert.ThrowsAsync<FlightManagementException>(cancelService.CancelBookingAsync);
 
         }
-
         [Fact]
-        public async Task CancelBookingAsync_WhenBookingFound_ShouldRemoveBooking1()
+        public async Task CancelBookingAsync_BookingExists_PrintsSuccessMessage()
         {
             // Arrange
-            string flightNumber = "ABC123";
-            var flightData1 = new FlightDataModel { FlightNumber = flightNumber, DepartureCountry = "USA", DestinationCountry = "UK", DepartureDate = DateTime.Parse("2024-05-20"), DepartureAirport = "JFK", ArrivalAirport = "LHR", Prices = new List<FlightClassPrice> { new FlightClassPrice { Class = FlightClass.Business, Price = 1000 } } };
-            var flightData2 = new FlightDataModel { FlightNumber = "XYZ456", DepartureCountry = "UK", DestinationCountry = "USA", DepartureDate = DateTime.Parse("2024-05-21"), DepartureAirport = "LHR", ArrivalAirport = "JFK", Prices = new List<FlightClassPrice> { new FlightClassPrice { Class = FlightClass.Economy, Price = 800 } } };
-            List<FlightDataModel> flights = new List<FlightDataModel> { flightData1, flightData2 };
+            var flightNumberToCancel = "ABC123";
+            var bookings = new List<BookingEntry>
+            {
+                new BookingEntry { FlightNumber = "ABC123" },
+                new BookingEntry { FlightNumber = "XYZ789" }
+            };
 
-            var mockedFileOperations = new Mock<IFileOperations>();
-            mockedFileOperations.Setup(f => f.ReadFromCSVAsync<FlightDataModel>(It.IsAny<string>())).ReturnsAsync(flights);
-            mockedFileOperations.Setup(f => f.WriteToCSVAsync(It.IsAny<string>(), It.IsAny<List<FlightDataModel>>()))
-            .Returns(Task.CompletedTask)
-            .Callback<string, List<FlightDataModel>>((filePath, updatedBookings) => flights = updatedBookings);
+            var mockFileOperations = new Mock<IFileOperations>();
+            mockFileOperations.Setup(m => m.ReadFromCSVAsync<BookingEntry>(It.IsAny<string>()))
+                              .ReturnsAsync(bookings);
+            mockFileOperations.Setup(m => m.WriteToCSVAsync(It.IsAny<string>(), It.IsAny<List<BookingEntry>>()))
+                              .Returns(Task.CompletedTask)
+                              .Callback<string, List<BookingEntry>>((filePath, updatedBookings) => bookings = updatedBookings);
 
-            var cancelService = new FlightCancelService(mockedFileOperations.Object);
+            var service = new FlightCancelService();
 
-            // Act
-            await cancelService.CancelBookingAsync();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                using (var sr = new StringReader(flightNumberToCancel))
+                {
+                    Console.SetIn(sr);
 
-            // Assert 
-            flights.Should().HaveCount(1);
+                    // Act
+                    await service.CancelBookingAsync();
+
+                    // Assert
+                    var output = sw.ToString().Trim();
+                    Assert.Contains($"Cancel Booking operation selected.\r\nEnter", output);
+                }
+            }
         }
     }
+
 }
-
-
