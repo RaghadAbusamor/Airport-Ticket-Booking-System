@@ -3,13 +3,11 @@ using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
 using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Moq;
-using System.Reflection;
 using FlightClassPrice = AirportTicketBookingSystem.Flights.DataModel.FlightClassPrice;
 
 
-namespace AirportTicketBookingSystem.Tests
+namespace AirportTicketBookingSystem.Test.FlightServices.Test
 {
     public class EditServiceTests
     {

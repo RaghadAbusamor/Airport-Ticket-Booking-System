@@ -14,7 +14,7 @@ namespace AirportTicketBookingSystem.Flights
             {
                 _flights = await FileOperations.ReadFromCSVAsync<FlightData>(Booking);
 
-                Console.WriteLine("Enter parameter and value to filter flights (e.g., 'class' = 'busniss'):");
+                Console.WriteLine("Enter parameter and value to filter flights (e.g., 'class' = 'business'):");
                 Console.Write("Enter parameter: ");
                 string parameterString = Console.ReadLine();
                 Console.Write("Enter value: ");
@@ -34,7 +34,6 @@ namespace AirportTicketBookingSystem.Flights
                     return;
                 }
 
-
                 List<FlightData> filteredFlights = _flights.Where(filterPredicate).ToList();
                 FlightManagementService.DisplayFilteredFlights(filteredFlights);
             }
@@ -43,7 +42,6 @@ namespace AirportTicketBookingSystem.Flights
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
-
         public Func<FlightData, bool> GetFilterPredicate(FilterParameter parameter, string value)
         {
             switch (parameter)

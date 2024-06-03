@@ -1,15 +1,11 @@
-﻿using AirportTicketBookingSystem.Enums;
-using AirportTicketBookingSystem.Exceptions;
+﻿using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
-using AirportTicketBookingSystem.Flights;
 using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
-using FluentAssertions;
 using Moq;
-using FlightClassPrice = AirportTicketBookingSystem.Flights.DataModel.FlightClassPrice;
 using FlightDataModel = AirportTicketBookingSystem.Flights.DataModel.FlightData;
 
-namespace AirportTicketBookingSystem.Tests
+namespace AirportTicketBookingSystem.Test.FlightServices.Test
 {
     public class FlightCancelServiceTests
     {

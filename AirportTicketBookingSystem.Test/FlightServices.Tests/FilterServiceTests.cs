@@ -1,39 +1,48 @@
-﻿using AirportTicketBookingSystem.Flights;
+﻿using AirportTicketBookingSystem.Enums;
+using AirportTicketBookingSystem.Flights;
 
-namespace AirportTicketBookingSystem.Tests
+namespace AirportTicketBookingSystem.Test.FlightServices.Test
 {
     public class FlightFilterServiceTests
     {
         [Fact]
-        public async Task FilterBookingsAsync_InvalidParameter_ReturnsErrorMessage()
+        public void GetFilterPredicate_InvalidParameter_ShouldReturnNull()
         {
             // Arrange
-            var filterService = new FlightFilterService();
-            var consoleOutput = new StringWriter();
-            Console.SetOut(consoleOutput);
-            Console.SetIn(new StringReader("invalid\nvalue\n"));
+            var flightFilterService = new FlightFilterService();
 
             // Act
-            await filterService.FilterBookingsAsync();
+            var predicate = flightFilterService.GetFilterPredicate((FilterParameter)999, "some value");
 
             // Assert
-            Assert.Contains("Invalid parameter.", consoleOutput.ToString());
+            Assert.Null(predicate);
+        }
+        [Fact]
+        public void GetFilterPredicate_InvalidPrice_ShouldReturnNull()
+        {
+            // Arrange
+            var flightFilterService = new FlightFilterService();
+
+            // Act
+            var predicate = flightFilterService.GetFilterPredicate(FilterParameter.Price, "invalid price");
+
+            // Assert
+            Assert.Null(predicate);
         }
 
         [Fact]
-        public async Task FilterBookingsAsync_ValidParameterInvalidValue_ReturnsErrorMessage()
+        public void GetFilterPredicate_InvalidDate_ShouldReturnNull()
         {
             // Arrange
-            var filterService = new FlightFilterService();
-            var consoleOutput = new StringWriter();
-            Console.SetOut(consoleOutput);
-            Console.SetIn(new StringReader("class\ninvalid\n"));
+            var flightFilterService = new FlightFilterService();
 
             // Act
-            await filterService.FilterBookingsAsync();
+            var predicate = flightFilterService.GetFilterPredicate(FilterParameter.DepartureDate, "invalid date");
 
             // Assert
-            Assert.Contains("Invalid parameter value.", consoleOutput.ToString());
+            Assert.Null(predicate);
         }
     }
 }
+
+

@@ -3,7 +3,7 @@ using AirportTicketBookingSystem.Flights.DataModel;
 using AirportTicketBookingSystem.Flights.FlightServices;
 using FlightClassPrice = AirportTicketBookingSystem.Flights.DataModel.FlightClassPrice;
 
-namespace AirportTicketBookingSystem.Test
+namespace AirportTicketBookingSystem.Test.FlightServices.Test
 {
     public class FlightSearchServiceTests
     {
@@ -42,7 +42,7 @@ namespace AirportTicketBookingSystem.Test
             var searchResults = flightSearchService.SearchFlights(null, null, null, null, null, null, null, null);
 
             // Assert
-            Assert.Equal(3, searchResults.Count); 
+            Assert.Equal(3, searchResults.Count);
         }
     }
 }
