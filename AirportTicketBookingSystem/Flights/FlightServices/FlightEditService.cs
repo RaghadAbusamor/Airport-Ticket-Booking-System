@@ -1,13 +1,12 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
-using AirportTicketBookingSystem.Flights.DataModel;
 
 namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightEditService
     {
-        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
+        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
 
         public async Task EditBookingAsync()
         {
@@ -22,7 +21,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
                     throw new ArgumentException("Flight number cannot be empty.");
                 }
 
-                List<FlightData> bookings = await FileOperations.ReadFromCSVAsync<FlightData>(PassengersFlightsFile);
+                List<DataModel.FlightData> bookings = await FileOperations.ReadFromCSVAsync<DataModel.FlightData>(PassengersFlightsFile);
                 var selectedBooking = bookings.FirstOrDefault(b => b.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
 
                 if (selectedBooking == null)
@@ -43,7 +42,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
             }
         }
 
-        private FlightClass GetNewBookingClass()
+        public FlightClass GetNewBookingClass()
         {
             while (true)
             {

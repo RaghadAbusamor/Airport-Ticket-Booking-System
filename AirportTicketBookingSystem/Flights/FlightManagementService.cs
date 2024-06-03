@@ -7,8 +7,9 @@ namespace AirportTicketBookingSystem.Flights
 {
     public class FlightManagementService
     {
+        public IFileOperations FileOperations { get; set; }
         private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
-        public List<Flight> Flights { get; set; }
+        public List<DataModel.FlightData> Flights { get; set; }
         public async Task BatchFlightUploadAsync()
         {
             try
@@ -21,7 +22,7 @@ namespace AirportTicketBookingSystem.Flights
                     throw new FlightManagementException("File path cannot be empty.");
                 }
 
-                List<Flight> newFlights = await FileOperations.ReadFromCSVAsync<Flight>(filePath);
+                List<DataModel.FlightData> newFlights = await FileOperations.ReadFromCSVAsync<DataModel.FlightData>(filePath);
                 Flights.AddRange(newFlights);
 
                 Console.WriteLine("Flights successfully uploaded.");
@@ -56,7 +57,7 @@ namespace AirportTicketBookingSystem.Flights
                 Prices = selectedFlight.Prices
             };
 
-            await FileOperations.WriteToCSVAsync(PassengersFlightsFile, bookingEntry);
+            await FileOperations.WriteToCSVAsync<BookingEntry>(PassengersFlightsFile, bookingEntry);
             Console.WriteLine($"Flight {flightNumber} added to your bookings.");
         }
         public void Exit()
@@ -134,7 +135,7 @@ namespace AirportTicketBookingSystem.Flights
 
             DisplayFlights(entities);
         }
-        public static Flight FindBookingByFlightNumber(List<Flight> bookings, string flightNumber)
+        public static FlightData FindBookingByFlightNumber(List<FlightData> bookings, string flightNumber)
         {
             return bookings.FirstOrDefault(f => f.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
         }

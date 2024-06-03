@@ -1,15 +1,17 @@
 ﻿using AirportTicketBookingSystem.Enums;
 using AirportTicketBookingSystem.FileSystem;
 
+
 namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightSearchService
     {
         private const string Booking = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
-        private List<Flight> _flights;
-        public async void SearchBookingAsync()
+        public List<DataModel.FlightData> _flights;
+        public async Task
+SearchBookingAsync()
         {
-            _flights = await FileOperations.ReadFromCSVAsync<Flight>(Booking);
+            _flights = await FileOperations.ReadFromCSVAsync<DataModel.FlightData>(Booking);
             Console.WriteLine("Enter search criteria for flights:");
             Console.Write("Enter Flight Number: ");
             string flightNumber = Console.ReadLine();
@@ -44,7 +46,7 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
             FlightManagementService.DisplayFilteredFlights(searchResults);
         }
 
-        private List<Flight> SearchFlights(string flightNumber, string departureCountry, string destinationCountry, DateTime? departureDate, string departureAirport, string arrivalAirport, string classStr, decimal? price)
+        public List<DataModel.FlightData> SearchFlights(string flightNumber, string departureCountry, string destinationCountry, DateTime? departureDate, string departureAirport, string arrivalAirport, string classStr, decimal? price)
         {
             var searchResults = _flights
                 .Where(f =>

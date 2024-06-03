@@ -1,12 +1,12 @@
 ﻿using AirportTicketBookingSystem.Exceptions;
 using AirportTicketBookingSystem.FileSystem;
-
+using AirportTicketBookingSystem.Flights.DataModel;
 
 namespace AirportTicketBookingSystem.Flights.FlightServices
 {
     public class FlightCancelService
     {
-        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
+        private const string PassengersFlightsFile = "C:\\Users\\ragha\\OneDrive\\Desktop\\FTS-Internship\\AirportTicketBookingSystem\\AirportTicketBookingSystem\\CSVFiles\\PassengersFlights.csv";
 
         public async Task CancelBookingAsync()
         {
@@ -16,8 +16,13 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
 
             try
             {
-                List<Flight> bookings = FileOperations.ReadFromCSVAsync<Flight>(PassengersFlightsFile).Result;
-                var selectedBooking = FlightManagementService.FindBookingByFlightNumber(bookings, flightNumber);
+                var bookings = await FileOperations.ReadFromCSVAsync<BookingEntry>(PassengersFlightsFile);
+                if (bookings == null)
+                {
+                    throw new FlightManagementException("No bookings found.");
+                }
+
+                var selectedBooking = bookings.FirstOrDefault(b => b.FlightNumber.Equals(flightNumber, StringComparison.OrdinalIgnoreCase));
 
                 if (selectedBooking == null)
                 {
@@ -34,7 +39,6 @@ namespace AirportTicketBookingSystem.Flights.FlightServices
             {
                 Console.WriteLine($"An error occurred while canceling the booking: {ex.Message}");
             }
-
         }
     }
 }
