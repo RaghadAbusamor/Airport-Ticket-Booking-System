@@ -32,6 +32,7 @@ jobs:
 
     - name: Install dependencies
       run: dotnet restore
+      working-directory: Airport-Ticket-Booking-System # Ensure the correct working directory is set
 
     - name: Display disk usage
       run: df -h
